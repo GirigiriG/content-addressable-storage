@@ -42,15 +42,11 @@ func handleConnections(conn net.Conn) {
 	}
 
 	var payloads []schema.Payload
-
 	if err := json.Unmarshal(payloadBuff[:n], &payloads); err != nil {
 		fmt.Println("error reading Unmarshaling payload struct", err)
 	}
 
-	fmt.Println(payloads[0].FileName)
-
 	newFile := payloads[0]
-
 	if err := os.WriteFile("data/"+newFile.FileName, newFile.Data, 0644); err != nil {
 		fmt.Println("error writing file to data", err)
 	}

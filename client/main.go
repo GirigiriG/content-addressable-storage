@@ -10,8 +10,11 @@ import (
 	"github.com/GirigiriG/blob_storage/utils"
 )
 
+var REMOTE_HOST = "localhost:9090"
+
 func main() {
-	packet, err := schema.CreatePacket("vector_db")
+
+	packet, err := schema.CreatePacket("data.txt")
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -19,10 +22,10 @@ func main() {
 	buf := make([]byte, 4)
 
 	binary.BigEndian.PutUint32(buf, packetLen)
-	remote := "localhost:9090"
-	conn, err := net.Dial("tcp", remote)
+
+	conn, err := net.Dial("tcp", REMOTE_HOST)
 	if err != nil {
-		fmt.Println("uanble to connect to tcp server @ " + remote)
+		fmt.Println("uanble to connect to tcp server @ " + REMOTE_HOST)
 	}
 
 	fmt.Println("[sending] " + packet.Payload.FileName)
