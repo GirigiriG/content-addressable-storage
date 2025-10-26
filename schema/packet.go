@@ -36,11 +36,11 @@ func CreatePacket(fileName string) (*Packet, error) {
 	payload := NewPayload(mimeType, fileNameWithExt, file)
 	header := NewHeader(utils.GetStructLength(payload))
 
-	packet := Packet{
+	var packet = &Packet{
 		HeadAndPayloadLength: uint32(utils.GetStructLength(header, payload)),
 		Header:               header,
 		Payload:              payload,
 	}
 
-	return &packet, nil
+	return packet, nil
 }
