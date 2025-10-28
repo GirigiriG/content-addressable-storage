@@ -13,12 +13,11 @@ import (
 var REMOTE_HOST = "localhost:9090"
 
 func main() {
-
 	packet, err := schema.CreatePacket("data.txt")
 	if err != nil {
 		log.Fatal(err)
 	}
-	var packetLen uint32 = packet.HeadAndPayloadLength
+	var packetLen uint32 = packet.ContentLength
 	buf := make([]byte, 4)
 
 	binary.BigEndian.PutUint32(buf, packetLen)
@@ -28,8 +27,8 @@ func main() {
 		fmt.Println("uanble to connect to tcp server @ " + REMOTE_HOST)
 	}
 
-	fmt.Println("[sending] " + packet.Payload.FileName)
+	fmt.Println("[sending] " + packet.Data.FileName)
 	conn.Write(buf)
-	conn.Write(utils.ParsePayloadToJSON(packet.Payload))
+	conn.Write(utils.ParsePayloadToJSON(packet.Data))
 
 }

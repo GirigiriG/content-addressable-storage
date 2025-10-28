@@ -10,9 +10,9 @@ import (
 )
 
 type Packet struct {
-	HeadAndPayloadLength uint32
+	ContentLength uint32
 	Header               Header
-	Payload              Payload
+	Data              Payload
 }
 
 func CreatePacket(fileName string) (*Packet, error) {
@@ -37,9 +37,9 @@ func CreatePacket(fileName string) (*Packet, error) {
 	header := NewHeader(utils.GetStructLength(payload))
 
 	var packet = &Packet{
-		HeadAndPayloadLength: uint32(utils.GetStructLength(header, payload)),
+		ContentLength: uint32(utils.GetStructLength(header, payload)),
 		Header:               header,
-		Payload:              payload,
+		Data:              payload,
 	}
 
 	return packet, nil
