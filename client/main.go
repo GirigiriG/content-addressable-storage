@@ -25,10 +25,10 @@ func main() {
 	conn, err := net.Dial("tcp", REMOTE_HOST)
 	if err != nil {
 		fmt.Println("uanble to connect to tcp server @ " + REMOTE_HOST)
+		return
 	}
 
 	fmt.Println("[sending] " + packet.Data.FileName)
 	conn.Write(buf)
 	conn.Write(utils.ParsePayloadToJSON(packet.Data))
-
 }
